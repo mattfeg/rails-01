@@ -20,19 +20,27 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      render json: @user
+    if @user
+      if @user.update(user_params)
+        render json: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :not_found
     end
   end
 
   def destroy
     @user = User.find(params[:id])
-    if @user.destroy
-      render json: @user
+    if @user
+      if @user.destroy
+        render json: @user, status: :no_content
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :not_found
     end
   end
 

@@ -106,7 +106,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "returns a sucessful response" do
       delete :destroy, params: { id: user.id }
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:no_content)
     end
 
     it "returns a unprocessable entity response" do
