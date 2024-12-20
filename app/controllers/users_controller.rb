@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       if filtered_users.any?
         render json: filtered_users
       else
-        render json: { message: 'Not found user' }, status: :not_found
+        render json: { message: "Not found user" }, status: :not_found
       end
     else
       render json: @users
