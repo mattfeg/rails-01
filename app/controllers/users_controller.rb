@@ -1,7 +1,19 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
-    render json: @users
+    searched_user = params[:name]
+
+    if searched_user.present?
+      filtered_users = @users.select { |user| user.name.downcase.include?(searched_user.downcase) }
+
+      if filtered_users.any?
+        render json: filtered_users
+      else
+        render json: { message: 'Not found user' }, status: :not_found
+      end
+    else
+      render json: @users
+    end
   end
 
   def show
