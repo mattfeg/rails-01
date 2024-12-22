@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [ :update, :destroy ]
   def index
     @users = User.all
     render json: @users
@@ -19,32 +20,27 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user
-      if @user.update(user_params)
-        render json: @user
-      else
-        render json: @user.errors, status: :unprocessable_entity
-      end
+    if @user.update(user_params)
+      render json: @user
     else
-      render json: @user.errors, status: :not_found
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
-    if @user
-      if @user.destroy
-        render json: @user, status: :no_content
-      else
-        render json: @user.errors, status: :unprocessable_entity
-      end
+    if @user.destroy
+      render json: {}, status: :no_content
     else
-      render json: @user.errors, status: :not_found
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   private
+  def set_user
+    @user = user.find_by(id: params[:id])
+    render json: @user.errors, status: :not_found unless @user
+  end
+
   def user_params
     params.require(:user).permit(:name, :cpf, :birthdate)
   end
