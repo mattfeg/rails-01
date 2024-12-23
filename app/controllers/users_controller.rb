@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :update, :destroy ]
   def index
-    @users = User.all
+    filter_users_params = params[:name]
+
+    if filter_users_params.present?
+      @users = User.filter_by_name(filter_users_params)
+    else
+      @users = User.all
+    end
     render json: @users
   end
 
