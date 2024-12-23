@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    filter_users_params = params[:name]
+
+    if filter_users_params.present?
+      @users = User.filter_by_name(filter_users_params)
+    else
+      @users = User.all
+    end
     render json: @users
   end
 
