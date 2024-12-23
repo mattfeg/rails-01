@@ -126,15 +126,22 @@ RSpec.describe UsersController, type: :controller do
 
     it "returns a sucessful response" do
       delete :destroy, params: { id: user.id }
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:no_content)
     end
 
     it "returns a unprocessable entity response" do
-      allow(User).to receive(:find).and_return(user)
+      allow(User).to receive(:find_by).and_return(user)
       allow(user).to receive(:destroy).and_return(false)
 
       delete :destroy, params: { id: user.id }
       expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "returns a not found response" do
+      allow(User).to receive(:find_by).and_return(nil)
+
+      delete :destroy, params: { id: user.id }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
