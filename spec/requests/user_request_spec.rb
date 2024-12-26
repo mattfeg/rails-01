@@ -11,7 +11,7 @@ RSpec.describe UsersController, type: :request do
     }
 
     context 'without name filter' do
-      let(:params) {{}}
+      let(:params) { {} }
       it 'returns a sucessful response' do
         make_user_get_request
         expect(response).to have_http_status(:ok)
@@ -129,7 +129,7 @@ RSpec.describe UsersController, type: :request do
     }
 
     it 'deletes the user' do
-      expect{
+      expect {
         make_user_delete_request
       }.to change(User, :count).by(-1)
     end
@@ -146,6 +146,5 @@ RSpec.describe UsersController, type: :request do
       make_user_delete_request
       expect(response).to have_http_status(:unprocessable_entity)
     end
-
   end
 end
