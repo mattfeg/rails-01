@@ -10,6 +10,23 @@ RSpec.describe UsersController, type: :request do
       get '/users', params: params
     }
 
+    subject(:make_user_get_request_with_id) {
+      get "/users/#{user1.id}"
+    }
+
+    context 'with /:id param' do
+      let(:user_id) { user1.id }
+      it 'returns a sucessful response' do
+        make_user_get_request_with_id
+        expect(response).to have_http_status(:ok)
+      end
+      it 'returns a user by id' do
+        make_user_get_request_with_id
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['name']).to eq(user1.name)
+      end
+    end
+
     context 'without name filter' do
       let(:params) { {} }
       it 'returns a sucessful response' do
