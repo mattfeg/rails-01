@@ -20,6 +20,11 @@ RSpec.describe UsersController, type: :request do
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['name']).to eq(user1.name)
       end
+      it 'returns a right response for resume' do
+        make_user_get_request_with_id
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['resume']).to eq("#{user1.id}:#{user1.name}")
+      end
     end
     context 'without /:id param' do
       subject(:make_user_get_request) {
