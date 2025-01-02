@@ -17,7 +17,6 @@ RSpec.describe UsersController, type: :request do
       end
       it 'returns a user by id' do
         make_user_get_request_with_id
-        parsed_response = JSON.parse(response.body)
         expect(parsed_response['name']).to eq(user1.name)
       end
       it 'returns a right response for resume' do
@@ -38,7 +37,6 @@ RSpec.describe UsersController, type: :request do
         end
         it 'returns all created users' do
           make_user_get_request
-          parsed_response = JSON.parse(response.body)
           expect(parsed_response.size).to eq(3)
         end
       end
@@ -48,7 +46,6 @@ RSpec.describe UsersController, type: :request do
           it 'returns correct searched names' do
             make_user_get_request
             expect(response).to have_http_status(:ok)
-            parsed_response = JSON.parse(response.body)
             expect(parsed_response.size).to eq(1)
             expect(parsed_response.first['name']).to eq('Matheus')
           end
@@ -58,7 +55,6 @@ RSpec.describe UsersController, type: :request do
           it 'returns an empty list' do
             make_user_get_request
             expect(response).to have_http_status(:ok)
-            parsed_response = JSON.parse(response.body)
             expect(parsed_response.size).to eq(0)
           end
         end
