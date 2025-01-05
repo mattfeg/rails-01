@@ -4,9 +4,9 @@ class UsersController < ApplicationController
     filter_users_params = params[:name]
 
     if filter_users_params.present?
-      @users = User.filter_by_name(filter_users_params)
+      @users = User.includes([ :profile ]).filter_by_name(filter_users_params)
     else
-      @users = User.all
+      @users = User.includes([ :profile ]).all
     end
     render json: @users
   end
