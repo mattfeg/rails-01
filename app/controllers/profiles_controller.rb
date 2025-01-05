@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [ :update, :destroy ]
+  before_action :set_profile, only: [ :update, :destroy, :show ]
 
   def index
-    @profiles = Profile.all
+    @profiles = Profile.includes([ :user ]).all
     render json: @profiles
   end
 
@@ -26,12 +26,15 @@ class ProfilesController < ApplicationController
     end
   end
 
+  private
+
   def set_profile
     @profile = Profile.find_by(id: params[:id])
-    render json: { error: "Profile not found." }, status: :not_found unless @profile
+    render json: { error: "Profile not found." },
+    status: :not_found unless @profile
   end
 
   def profile_params
-    params.require(:profile).permit(:user, :image, :is_active)
+    params.require(:profile).permit(:image, :is_active)
   end
 end

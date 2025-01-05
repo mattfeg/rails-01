@@ -1,6 +1,6 @@
 class Profile < ApplicationRecord
   belongs_to :user
   validates :user, presence: true
-  validates :image, presence: true
-  validates :is_active, presence: true
+  validates :image, presence: false
+  validates :is_active, inclusion: { in: [ true, false ] }
 end

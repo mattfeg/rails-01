@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.create_profile(is_active: true) unless @user.profile.present?
+      # @user.create_profile(is_active: true)
       render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :cpf, :birthdate)
+    params.require(:user).permit(:name, :cpf, :birthdate,
+    profile_attributes: [ :image, :is_active ])
   end
 end
