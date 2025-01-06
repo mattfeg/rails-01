@@ -19,8 +19,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # @user.create_profile(is_active: true)
-      render json: @user, status: :created
+      @user.create_profile(is_active: true)
+      render json: @user.to_json(include: :profile), status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -44,8 +44,8 @@ class UsersController < ApplicationController
 
   private
   def set_user
+    render json: { error: "User not found." }, status: :not_found unless
     @user = User.find_by(id: params[:id])
-    render json: { error: "User not found." }, status: :not_found unless @user
   end
 
   def user_params

@@ -29,9 +29,8 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
+    render json: { error: "Profile not found." }, status: :not_found unless
     @profile = Profile.find_by(id: params[:id])
-    render json: { error: "Profile not found." },
-    status: :not_found unless @profile
   end
 
   def profile_params

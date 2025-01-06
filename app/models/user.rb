@@ -6,10 +6,4 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :profile
 
   scope :filter_by_name, ->(name) { where("LOWER(name) LIKE ?", "%#{name.downcase}%") }
-
-  after_create :create_default_profile
-
-  def create_default_profile
-    self.build_profile(is_active: true).save
-  end
 end
