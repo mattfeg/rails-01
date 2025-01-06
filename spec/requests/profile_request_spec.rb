@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe ProfilesController, type: :request do
   describe "GET '/profiles'" do
-    let!(:user1) { create(:user, name: 'Matheus') }
-    let!(:user2) { create(:user, name: 'Edimo') }
-    let!(:user3) { create(:user, name: 'Pedim') }
+    let!(:user1) { create(:user, name: 'Matheus').tap { |user| user.create_profile(is_active: true) } }
+    let!(:user2) { create(:user, name: 'Edimo').tap { |user| user.create_profile(is_active: true) } }
+    let!(:user3) { create(:user, name: 'Pedim').tap { |user| user.create_profile(is_active: true) } }
 
     context "without /:id param" do
       subject(:make_profile_get_request) {
@@ -66,7 +66,7 @@ RSpec.describe ProfilesController, type: :request do
     end
   end
   describe "PATCH '/profiles'" do
-    let!(:user) { create(:user) }
+    let!(:user) { create(:user).tap { |user| user.create_profile(is_active: true) } }
     subject(:make_profile_patch_request) {
       patch "/profiles/#{user.profile.id}",
       params: { profile: new_attributes }
@@ -99,7 +99,7 @@ RSpec.describe ProfilesController, type: :request do
     end
   end
   describe "DELETE '/profiles'" do
-    let!(:user) { create(:user) }
+    let!(:user) { create(:user).tap { |user| user.create_profile(is_active: true) } }
     subject(:make_profile_delete_request) {
       delete "/profiles/#{user.profile.id}"
     }
