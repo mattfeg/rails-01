@@ -44,8 +44,7 @@ class UsersController < ApplicationController
 
   private
   def set_user
-    render json: { error: "User not found." }, status: :not_found unless
-    @user = User.find_by(id: params[:id])
+    render json: { error: "User not found." }, status: :not_found unless @user = User.find_by(id: params[:id])
   end
 
   def user_params
