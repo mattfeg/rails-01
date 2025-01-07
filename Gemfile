@@ -77,5 +77,5 @@ group :development, :test do
   gem "simplecov", require: false
 
   # Help to kill N+1 queries and unused eager loading
-  gem "bullet", group: "development"
+  gem "bullet"
 end
