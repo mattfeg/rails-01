@@ -3,7 +3,7 @@ class CreateProfiles < ActiveRecord::Migration[8.0]
     create_table :profiles do |t|
       t.references :user, null: false, foreign_key: true
       t.string :image
-      t.boolean :is_active
+      t.boolean :is_active, default: true
 
       t.timestamps
     end
