@@ -4,9 +4,9 @@ class UsersController < ApplicationController
     filter_users_params = params[:name]
 
     if filter_users_params.present?
-      @users = User.filter_by_name(filter_users_params)
+      @users = User.includes([ :profile ]).filter_by_name(filter_users_params)
     else
-      @users = User.all
+      @users = User.includes([ :profile ]).all
     end
     render json: @users
   end
@@ -19,7 +19,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user, status: :created
+      @user.create_profile(is_active: true)
+      render json: @user.to_json(include: :profile), status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -43,11 +44,11 @@ class UsersController < ApplicationController
 
   private
   def set_user
-    @user = User.find_by(id: params[:id])
-    render json: { error: "User not found." }, status: :not_found unless @user
+    render json: { error: "User not found." }, status: :not_found unless @user = User.find_by(id: params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, :cpf, :birthdate)
+    params.require(:user).permit(:name, :cpf, :birthdate,
+    profile_attributes: [ :image, :is_active ])
   end
 end

@@ -86,9 +86,12 @@ GEM
     bigdecimal (3.1.8)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (6.2.2)
+    brakeman (7.0.0)
       racc
     builder (3.3.0)
+    bullet (8.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     case_transform (0.2)
       activesupport
     clipboard (2.0.0)
@@ -340,6 +343,7 @@ GEM
     unicode-display_width (3.1.2)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
+    uniform_notifier (1.16.0)
     uri (1.0.2)
     useragent (0.16.11)
     websocket-driver (0.7.6)
@@ -367,6 +371,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   bootsnap
   brakeman
+  bullet
   cpf_faker
   debug
   factory_bot_rails

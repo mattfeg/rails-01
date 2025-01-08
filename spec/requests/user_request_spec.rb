@@ -79,6 +79,11 @@ RSpec.describe UsersController, type: :request do
         make_user_post_request
         expect(response).to have_http_status(:created)
       end
+      it 'creates a new profile for the user' do
+        expect {
+          make_user_post_request
+        }.to change(Profile, :count).by(1)
+      end
     end
     context 'with invalid attributes' do
       let(:params) { { user: invalid_attributes } }
@@ -90,6 +95,11 @@ RSpec.describe UsersController, type: :request do
       it 'returns an unprocessable entity response' do
         make_user_post_request
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+      it 'does not creates a new profile for the user' do
+        expect {
+          make_user_post_request
+        }.not_to change(Profile, :count)
       end
     end
   end

@@ -75,4 +75,7 @@ group :development, :test do
 
   # Code coverage for Ruby with a powerful configuration library and automatic merging of coverage across test suites
   gem "simplecov", require: false
+
+  # Help to kill N+1 queries and unused eager loading
+  gem "bullet"
 end
