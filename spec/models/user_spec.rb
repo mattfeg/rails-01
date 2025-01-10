@@ -5,6 +5,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:cpf) }
     it { is_expected.to validate_presence_of(:birthdate) }
+    it { is_expected.to allow_value("regular_user").for(:role) }
+    it { is_expected.to allow_value("admin").for(:role) }
+    it { is_expected.not_to allow_value("random string").for(:role) }
     it { is_expected.to allow_value("2024-12-12").for(:birthdate) }
     it { is_expected.to have_one(:profile).dependent(:destroy) }
   end
