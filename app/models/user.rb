@@ -6,5 +6,6 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
+  enum :role, { admin: 0, regular_user: 1 }
   scope :filter_by_name, ->(name) { where("LOWER(name) LIKE ?", "%#{name.downcase}%") }
 end
