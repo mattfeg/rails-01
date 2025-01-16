@@ -26,7 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_121537) do
     t.date "birthdate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role", default: "regular_user"
+    t.integer "role"
   end
 
   add_foreign_key "profiles", "users"
