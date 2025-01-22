@@ -42,6 +42,9 @@ gem "thruster", require: false
 # ActiveModelSerializers brings convention over configuration to your JSON generation.
 gem "active_model_serializers", "~> 0.10.0"
 
+# Flexible authentication solution for Rails with Warden.
+gem "devise"
+
 group :development, :test do
   gem "rubocop", require: false
 
